@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Словарь — {{ subject.title_ru }}{% endblock %}
+{% block content %}
+<h1>Словарь</h1>
+<div class="toolbar">
+  <label class="grow"><span class="sr-only">Поиск</span><input id="gl-search" type="search" placeholder="Поиск по-английски или по-русски"></label>
+  <label><span class="sr-only">Тема</span>
+    <select id="gl-topic"><option value="">Все темы</option>{% for t in topics %}<option value="{{ t.slug }}">{{ t.title_ru }}</option>{% endfor %}</select>
+  </label>
+</div>
+<p id="gl-count" class="muted"></p>
+<dl class="glossary">
+  {% for c in terms %}
+  <div class="entry" data-topic="{{ c.topic }}" data-search="{{ (c.term ~ ' ' ~ c.translation ~ ' ' ~ c.meaning_en ~ ' ' ~ c.meaning_ru)|lower }}">
+    <dt>{{ c.term }}<span class="tr">{{ c.translation }}</span></dt>
+    <dd lang="en">{{ c.meaning_en }}</dd>
+    <dd lang="ru">{{ c.meaning_ru }}</dd>
+  </div>
+  {% endfor %}
+</dl>
+<p id="gl-empty" class="muted" hidden>Ничего не найдено.</p>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/glossary.js') }}"></script>{% endblock %}

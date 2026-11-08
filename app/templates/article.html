@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} — {{ subject.title_ru }}{% endblock %}
+{% block main_class %}page page-wide{% endblock %}
+{% block content %}
+<div class="reader">
+  <article>
+    <p class="eyebrow"><a href="{{ url_for('subject.articles') }}">Статьи</a> · {{ subject.topic_title(article.topic) }} · {{ article.minutes }} мин</p>
+    <h1>{{ article.title }}</h1>
+    {% if article.title_ru %}<p class="lead">{{ article.title_ru }}</p>{% endif %}
+    <div id="article-body" class="prose">{{ article.html|safe }}</div>
+    {% if article.source %}<p class="source">Источник: {{ article.source }}</p>{% endif %}
+    <p class="source">Оформлено по образцу SQA Marking Instructions (Higher Psychology). Это учебный материал: распределение баллов не является официальной схемой SQA.</p>
+    <div class="article-foot">
+      <button id="mark-read" class="btn {{ 'is-done' if is_read }}" type="button" aria-pressed="{{ 'true' if is_read else 'false' }}">{{ 'Прочитано ✓' if is_read else 'Отметить как прочитанное' }}</button>
+      <nav class="pager" aria-label="Соседние статьи">
+        {% if prev_article %}<a href="{{ url_for('subject.article', slug=prev_article.slug) }}">← {{ prev_article.title }}</a>{% endif %}
+        {% if next_article %}<a href="{{ url_for('subject.article', slug=next_article.slug) }}">{{ next_article.title }} →</a>{% endif %}
+      </nav>
+    </div>
+  </article>
+  <aside class="reader-side" aria-label="Мои выделения">
+    <h2>Мои выделения</h2>
+    <p id="hl-empty" class="muted">Выделите текст в статье, чтобы отметить его цветом или добавить в конспект.</p>
+    <ul id="hl-list" class="hl-list"></ul>
+    <label class="side-label">Цитаты сохранять в
+      <select id="note-target">
+        <option value="">Конспект этой статьи</option>
+        {% for n in notes %}{% if n.article != article.slug %}<option value="{{ n.id }}">{{ n.title }}</option>{% endif %}{% endfor %}
+      </select>
+    </label>
+    <a class="side-link" href="{{ url_for('subject.notes') }}">Открыть конспект →</a>
+  </aside>
+</div>
+
+<div id="hl-toolbar" class="hl-toolbar" hidden>
+  <p id="hl-lookup" class="hl-lookup" hidden></p>
+  <div class="hl-actions">
+    {% for c in colors %}<button class="swatch s-{{ c }}" data-color="{{ c }}" type="button" aria-label="Выделить: {{ c }}"></button>{% endfor %}
+    <span class="hl-sep"></span>
+    <button id="hl-clip" class="hl-text" type="button">В конспект</button>
+    <button id="hl-delete" class="hl-text hl-danger" type="button" hidden>Убрать</button>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script id="page-data" type="application/json">{{ {"article": article.slug, "highlights": highlights, "glossary": glossary, "notesUrl": url_for('subject.notes')}|tojson }}</script>
+<script src="{{ url_for('static', filename='js/article.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Соответствия — {{ subject.title_ru }}{% endblock %}
+{% block content %}
+<p class="eyebrow"><a href="{{ url_for('subject.practice') }}">Задания</a></p>
+<h1>Соответствия</h1>
+{% for group in groups %}
+<h2>{{ group.topic.title_ru }}</h2>
+<ul class="task-list">
+  {% for s in group['items'] %}
+  <li>
+    <a href="{{ url_for('subject.matching', set_id=s.id) }}">
+      <span>{{ s.title }}</span>
+      <span class="task-meta">{{ s.pairs|length }} пар{% if s.id in progress and progress[s.id]['last_correct'] %} · <b class="ok">без ошибок</b>{% elif s.id in progress %} · были ошибки{% endif %}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}

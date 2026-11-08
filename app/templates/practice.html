@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Задания — {{ subject.title_ru }}{% endblock %}
+{% macro progress(kind) %}{% if stats.get(kind) %}<span class="tile-progress">{{ stats[kind].done }} / {{ stats[kind].total }}</span><div class="bar"><i style="width: {{ stats[kind].pct }}%"></i></div>{% endif %}{% endmacro %}
+{% block content %}
+<h1>Задания</h1>
+<div class="practice-grid">
+  {% if stats.get('quiz') %}
+  <section class="tile tile-form">
+    <h2>Тест</h2>
+    <p class="muted">Вопросы с вариантами ответа, сразу видно объяснение.</p>
+    {{ progress('quiz') }}
+    <form action="{{ url_for('subject.quiz') }}">
+      <div class="form-row">
+        <label>Тема
+          <select name="topic"><option value="">Все темы</option>{% for t in topics %}<option value="{{ t.slug }}">{{ t.title_ru }}</option>{% endfor %}</select>
+        </label>
+        <label>Вопросов
+          <select name="n"><option>10</option><option selected>15</option><option>30</option><option value="1000">все</option></select>
+        </label>
+      </div>
+      <div class="form-buttons">
+        <button class="btn btn-primary" type="submit">Начать</button>
+        <button class="btn" type="submit" name="mode" value="mistakes">Только ошибки</button>
+      </div>
+    </form>
+  </section>
+  {% endif %}
+
+  {% if stats.get('open') %}
+  <a class="tile" href="{{ url_for('subject.open_list') }}">
+    <h2>Открытые вопросы</h2>
+    <p class="muted">Экзаменационные вопросы. Пишете ответ, затем сверяете его с пунктами из разбора.</p>
+    {{ progress('open') }}
+  </a>
+  {% endif %}
+
+  {% if stats.get('matching') %}
+  <a class="tile" href="{{ url_for('subject.matching_list') }}">
+    <h2>Соответствия</h2>
+    <p class="muted">Соедините исследования, понятия, факторы и результаты.</p>
+    {{ progress('matching') }}
+  </a>
+  {% endif %}
+
+  {% for kind, endpoint, title, text in [
+    ('translation', 'subject.cards_translation', 'Карточки: перевод', 'Английский термин и русский перевод — в обе стороны.'),
+    ('definition', 'subject.cards_definition', 'Карточки: определения', 'Определения дословно из материалов курса.')] %}
+  {% if stats.get(kind) %}
+  <section class="tile">
+    <h2>{{ title }}</h2>
+    <p class="muted">{{ text }}</p>
+    {{ progress(kind) }}
+    <p class="chips">
+      <a class="chip chip-solid" href="{{ url_for(endpoint) }}">Все</a>
+      {% for t in topics %}<a class="chip" href="{{ url_for(endpoint, topic=t.slug) }}">{{ t.title_ru }}</a>{% endfor %}
+    </p>
+  </section>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

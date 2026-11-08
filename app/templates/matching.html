@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} — {{ subject.title_ru }}{% endblock %}
+{% block content %}
+<div class="runner-head"><a href="{{ url_for('subject.matching_list') }}">← Все наборы</a><span id="match-count" class="muted"></span></div>
+<h1>{{ item.title }}</h1>
+<p class="muted">{{ item.instruction or 'Выберите элемент слева, затем подходящий справа.' }}</p>
+<div class="match-board">
+  <div id="match-left" class="match-col"></div>
+  <div id="match-right" class="match-col"></div>
+</div>
+<section id="match-done" class="match-done" hidden>
+  <h2 id="match-result"></h2>
+  <p class="actions">
+    {% if next_id %}<a class="btn btn-primary" href="{{ url_for('subject.matching', set_id=next_id) }}">Следующий набор</a>{% endif %}
+    <a class="btn" href="">Ещё раз</a>
+  </p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script id="page-data" type="application/json">{{ item|tojson }}</script>
+<script src="{{ url_for('static', filename='js/matching.js') }}"></script>
+{% endblock %}

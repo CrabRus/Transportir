@@ -1,0 +1,11 @@
+{
+  "title": "Psychology",
+  "title_ru": "Психология",
+  "description": "Higher Psychology: Social Behaviour — конформность и подчинение.",
+  "order": 10,
+  "topics": [
+    {"slug": "conformity", "title": "Conformity", "title_ru": "Конформность"},
+    {"slug": "obedience", "title": "Obedience", "title_ru": "Подчинение"},
+    {"slug": "evaluation", "title": "Evaluating research", "title_ru": "Анализ и оценка исследований"}
+  ]
+}

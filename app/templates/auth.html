@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% set is_register = mode == 'register' %}
+{% block title %}{{ 'Регистрация' if is_register else 'Вход' }} — {{ site_name }}{% endblock %}
+{% block content %}
+<section class="auth-card">
+  <h1>{{ 'Регистрация' if is_register else 'Вход' }}</h1>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Логин
+      <input name="username" required autofocus autocomplete="username" maxlength="32" value="{{ request.form.get('username', '') }}">
+    </label>
+    <label>Пароль
+      <input name="password" type="password" required minlength="{{ 6 if is_register else 1 }}" autocomplete="{{ 'new-password' if is_register else 'current-password' }}">
+    </label>
+    {% if is_register %}
+    <label>Пароль ещё раз
+      <input name="password2" type="password" required minlength="6" autocomplete="new-password">
+    </label>
+    {% endif %}
+    <button class="btn btn-primary btn-wide" type="submit">{{ 'Зарегистрироваться' if is_register else 'Войти' }}</button>
+  </form>
+  <p class="muted">
+    {% if is_register %}Уже есть аккаунт? <a href="{{ url_for('auth.login') }}">Войти</a>
+    {% else %}Нет аккаунта? <a href="{{ url_for('auth.register') }}">Зарегистрироваться</a>{% endif %}
+  </p>
+</section>
+{% endblock %}

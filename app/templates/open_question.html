@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Открытый вопрос — {{ subject.title_ru }}{% endblock %}
+{% block main_class %}page page-narrow{% endblock %}
+{% block content %}
+<div class="runner-head"><a href="{{ url_for('subject.open_list') }}">← Все вопросы</a><span class="muted">{{ q.marks }} баллов · {{ q.minutes }} мин</span></div>
+{% if q.scenario %}<blockquote class="scenario">{{ q.scenario }}</blockquote>{% endif %}
+<h1 class="question">{{ q.question }}</h1>
+{% if q.hint %}<p class="muted">{{ q.hint }}</p>{% endif %}
+<label class="sr-only" for="answer">Ваш ответ</label>
+<textarea id="answer" rows="12" lang="en" placeholder="Напишите ответ здесь. Черновик сохраняется автоматически.">{{ saved_answer }}</textarea>
+<p class="savebar"><span id="save-state" class="muted"></span></p>
+<button id="reveal" class="btn btn-primary" type="button">Сверить с разбором</button>
+
+<section id="review" hidden>
+  <h2>Отметьте, что есть в вашем ответе</h2>
+  <ul class="checks">
+    {% for point in q.key_points %}
+    <li><label><input type="checkbox" data-i="{{ loop.index0 }}" {% if loop.index0 in saved_checked %}checked{% endif %}> <span>{{ point }}</span></label></li>
+    {% endfor %}
+  </ul>
+  <p id="check-score" class="muted"></p>
+  {% if q.model_answer %}
+  <details class="model" open>
+    <summary>Пример ответа из материалов</summary>
+    <div>{% for para in q.model_answer.split('\n\n') %}<p>{{ para }}</p>{% endfor %}</div>
+  </details>
+  {% endif %}
+  {% if q.source %}<p class="source">Источник: {{ q.source }}</p>{% endif %}
+  <p class="actions"><button id="finish" class="btn btn-primary" type="button">Сохранить результат</button></p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script id="page-data" type="application/json">{{ {"id": q.id, "reviewed": has_saved and saved_checked|length > 0, "total": q.key_points|length, "listUrl": url_for('subject.open_list')}|tojson }}</script>
+<script src="{{ url_for('static', filename='js/open.js') }}"></script>
+{% endblock %}

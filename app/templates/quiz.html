@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Тест — {{ subject.title_ru }}{% endblock %}
+{% block main_class %}page page-narrow{% endblock %}
+{% block content %}
+<div id="quiz">
+  <div class="runner-head"><a href="{{ url_for('subject.practice') }}">← Задания</a><span id="quiz-count" class="muted"></span></div>
+  <div class="bar"><i id="quiz-bar" style="width:0"></i></div>
+  <h1 id="quiz-question" class="question"></h1>
+  <div id="quiz-options" class="options"></div>
+  <div id="quiz-feedback" class="feedback" hidden></div>
+  <button id="quiz-next" class="btn btn-primary" type="button" hidden>Дальше</button>
+</div>
+<section id="quiz-result" hidden>
+  <p class="eyebrow">Результат</p>
+  <h1 id="result-score"></h1>
+  <div id="result-mistakes"></div>
+  <p class="actions">
+    <a class="btn btn-primary" href="">Ещё раз</a>
+    <a class="btn" href="{{ url_for('subject.practice') }}">К заданиям</a>
+  </p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script id="page-data" type="application/json">{{ questions|tojson }}</script>
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+{% endblock %}

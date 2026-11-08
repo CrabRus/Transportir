@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Предметы</h1>
+<div class="grid-2">
+  {% for card in cards %}
+  <a class="tile" href="{{ url_for('subject.dashboard', subject=card.subject.slug) }}">
+    <h2>{{ card.subject.title_ru }}</h2>
+    <p class="muted">{{ card.subject.description }}</p>
+    <div class="bar" role="img" aria-label="Пройдено {{ card.overall }}%"><i style="width: {{ card.overall }}%"></i></div>
+    <small class="muted">Пройдено {{ card.overall }}%</small>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

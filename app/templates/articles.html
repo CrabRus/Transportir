@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Статьи — {{ subject.title_ru }}{% endblock %}
+{% block content %}
+<h1>Статьи</h1>
+<p class="lead">Выделяйте текст разными цветами и сохраняйте цитаты в свой конспект.</p>
+{% for group in groups %}
+<h2>{{ group.topic.title_ru }}</h2>
+<ol class="article-list">
+  {% for a in group['items'] %}
+  <li>
+    <a href="{{ url_for('subject.article', slug=a.slug) }}">
+      <span class="article-title">{{ a.title }}{% if a.title_ru %} <em>{{ a.title_ru }}</em>{% endif %}</span>
+      <span class="article-summary">{{ a.summary }}</span>
+      <span class="article-meta">
+        {{ a.minutes }} мин
+        {% if a.optional %}· не для экзамена{% endif %}
+        {% if a.slug in read %}· <b class="ok">прочитано</b>{% endif %}
+      </span>
+    </a>
+  </li>
+  {% endfor %}
+</ol>
+{% endfor %}
+{% endblock %}

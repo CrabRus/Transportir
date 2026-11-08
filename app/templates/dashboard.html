@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ subject.title_ru }} — {{ site_name }}{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">{{ subject.title }}</p>
+    <h1>{{ subject.title_ru }}</h1>
+    <p class="lead">{{ subject.description }}</p>
+    {% if next_article %}
+    <p class="actions"><a class="btn btn-primary" href="{{ url_for('subject.article', slug=next_article.slug) }}">Читать дальше: {{ next_article.title }}</a></p>
+    {% else %}
+    <p class="actions"><a class="btn btn-primary" href="{{ url_for('subject.practice') }}">Перейти к заданиям</a></p>
+    {% endif %}
+  </div>
+  <div class="hero-score" aria-label="Общий прогресс">
+    <strong>{{ overall }}%</strong>
+    <span>общий прогресс</span>
+  </div>
+</section>
+
+<h2>Прогресс по разделам</h2>
+<div class="stats">
+  {% for s in stats %}
+  <div class="stat">
+    <div class="stat-head"><span>{{ s.label }}</span><span class="muted">{{ s.done }} / {{ s.total }}</span></div>
+    <div class="bar" role="img" aria-label="{{ s.pct }}%"><i style="width: {{ s.pct }}%"></i></div>
+  </div>
+  {% endfor %}
+</div>
+
+{% if attempts %}
+<h2>Последние тесты</h2>
+<ul class="plainlist">
+  {% for a in attempts %}
+  <li class="row"><span>{{ a['created_at'][:10] }}</span><strong>{{ a['score'] }} из {{ a['total'] }}</strong></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

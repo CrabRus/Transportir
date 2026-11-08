@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>{% block title %}{{ site_name }}{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="{{ url_for('root.index') }}"><span>{{ site_name }}</span></a>
+      {% if subject is defined and g.user %}
+      <nav class="mainnav" aria-label="Разделы">
+        <a href="{{ url_for('subject.dashboard') }}" {% if active == 'dashboard' %}aria-current="page"{% endif %}>Обзор</a>
+        <a href="{{ url_for('subject.articles') }}" {% if active == 'articles' %}aria-current="page"{% endif %}>Статьи</a>
+        <a href="{{ url_for('subject.practice') }}" {% if active == 'practice' %}aria-current="page"{% endif %}>Задания</a>
+        <a href="{{ url_for('subject.glossary') }}" {% if active == 'glossary' %}aria-current="page"{% endif %}>Словарь</a>
+        <a href="{{ url_for('subject.notes') }}" {% if active == 'notes' %}aria-current="page"{% endif %}>Конспект</a>
+      </nav>
+      {% endif %}
+      <div class="account">
+        {% if g.user %}
+        <span class="account-name">{{ g.user['username'] }}</span>
+        <form method="post" action="{{ url_for('auth.logout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="linkbtn" type="submit">Выйти</button>
+        </form>
+        {% else %}
+        <a href="{{ url_for('auth.login') }}">Войти</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <main class="{% block main_class %}page{% endblock %}">
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <p class="flash flash-{{ category }}" role="status">{{ message }}</p>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+  {% if subject is defined %}
+  <script>window.API_ROOT = {{ url_for('subject.dashboard')|tojson }} + "api";</script>
+  {% endif %}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

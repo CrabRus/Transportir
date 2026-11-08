@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="landing">
+  <div>
+    <h1>Готовьтесь к экзамену так, чтобы <mark class="m-yellow">запоминалось</mark>.</h1>
+    <p class="lead">Статьи по материалам курса, тесты, карточки, соответствия и словарь с переводом. Выделения, конспекты и прогресс хранятся в вашем аккаунте.</p>
+    <p class="actions">
+      <a class="btn btn-primary" href="{{ url_for('auth.register') }}">Создать аккаунт</a>
+      <a class="btn" href="{{ url_for('auth.login') }}">Войти</a>
+    </p>
+  </div>
+  <aside class="landing-subjects" aria-label="Предметы">
+    <h2>Предметы</h2>
+    {% for s in subjects %}
+    <div class="landing-subject">
+      <strong>{{ s.title_ru }}</strong>
+      <span>{{ s.description }}</span>
+    </div>
+    {% endfor %}
+  </aside>
+</section>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Открытые вопросы — {{ subject.title_ru }}{% endblock %}
+{% block content %}
+<p class="eyebrow"><a href="{{ url_for('subject.practice') }}">Задания</a></p>
+<h1>Открытые вопросы</h1>
+{% for group in groups %}
+<h2>{{ group.topic.title_ru }}</h2>
+<ul class="task-list">
+  {% for q in group['items'] %}
+  <li>
+    <a href="{{ url_for('subject.open_question', qid=q.id) }}">
+      <span>{{ q.question }}</span>
+      <span class="task-meta">{{ q.marks }} б · {{ q.minutes }} мин{% if q.id in answered %} · <b class="ok">сделано</b>{% endif %}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Конспект — {{ subject.title_ru }}{% endblock %}
+{% block main_class %}page page-wide{% endblock %}
+{% block content %}
+<h1>Мой конспект</h1>
+<div class="segmented" role="tablist">
+  <button id="tab-notes" type="button" role="tab" aria-selected="true" aria-pressed="true">Конспекты</button>
+  <button id="tab-hl" type="button" role="tab" aria-selected="false" aria-pressed="false">Выделения</button>
+</div>
+
+<section id="pane-notes" class="notes">
+  <aside>
+    <button id="note-new" class="btn btn-wide" type="button">+ Новый конспект</button>
+    <ul id="note-list" class="note-list"></ul>
+  </aside>
+  <div id="note-editor" class="note-editor" hidden>
+    <div class="note-head">
+      <input id="note-title" aria-label="Название" maxlength="200">
+      <button id="note-mode" class="btn" type="button"></button>
+      <button id="note-delete" class="linkbtn danger" type="button">Удалить</button>
+    </div>
+    <textarea id="note-body" rows="22" aria-label="Текст конспекта" placeholder="Пишите здесь. # заголовок, - список, **жирный**, > цитата"></textarea>
+    <div id="note-preview" class="prose" hidden></div>
+    <p class="savebar"><span id="note-state" class="muted"></span></p>
+  </div>
+  <p id="note-empty" class="muted" hidden>Создайте конспект или сохраните цитату из статьи.</p>
+</section>
+
+<section id="pane-hl" hidden>
+  <p class="chips" id="hl-filter">
+    <button class="chip chip-solid" data-color="" type="button">Все цвета</button>
+    {% for c in colors %}<button class="chip swatch-chip" data-color="{{ c }}" type="button" aria-label="{{ c }}"><i class="dot s-{{ c }}"></i></button>{% endfor %}
+  </p>
+  {% for g_item in groups %}
+  <div class="hl-group">
+    <h2><a href="{{ url_for('subject.article', slug=g_item.article.slug) }}">{{ g_item.article.title }}</a></h2>
+    <ul class="hl-list hl-list-full">
+      {% for h in g_item['items'] %}
+      <li data-color="{{ h.color }}"><i class="dot s-{{ h.color }}"></i><a href="{{ url_for('subject.article', slug=g_item.article.slug) }}#hl-{{ h.id }}">{{ h.quote }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% else %}
+  <p class="muted">Пока нет выделений. Откройте <a href="{{ url_for('subject.articles') }}">статью</a> и выделите текст.</p>
+  {% endfor %}
+</section>
+{% endblock %}
+{% block scripts %}
+<script id="page-data" type="application/json">{{ notes|tojson }}</script>
+<script src="{{ url_for('static', filename='js/notes.js') }}"></script>
+{% endblock %}

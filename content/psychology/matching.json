@@ -1,0 +1,101 @@
+[
+  {"id": "m-types", "topic": "conformity", "title": "Types of conformity: meaning", "pairs": [
+    ["Compliance", "Publicly agreeing while privately keeping your own view"],
+    ["Identification", "Agreeing publicly and privately while in the group"],
+    ["Internalisation", "Agreeing publicly and privately even after leaving the group"]
+  ]},
+  {"id": "m-types-examples", "topic": "conformity", "title": "Types of conformity: examples", "pairs": [
+    ["Compliance", "Laughing at a joke you don't find funny"],
+    ["Identification", "Recycling with flatmates but not during the holidays"],
+    ["Internalisation", "Staying vegetarian after leaving the job where you became one"]
+  ]},
+  {"id": "m-motivation", "topic": "conformity", "title": "Motivations to conform", "pairs": [
+    ["Normative influence", "Need to be liked and accepted"],
+    ["Informational influence", "Wanting to be correct when uncertain"],
+    ["Linked to normative influence", "Asch; Mori and Arai"],
+    ["Linked to informational influence", "Jenness; Sherif"]
+  ]},
+  {"id": "m-conformity-studies", "topic": "conformity", "title": "Conformity studies and their tasks", "pairs": [
+    ["Asch (1951)", "Matching a line to three comparison lines"],
+    ["Jenness (1932)", "Estimating beans in a bottle"],
+    ["Sherif (1935)", "Estimating how far a light appeared to move"],
+    ["Mori and Arai (2010)", "Judging lines while wearing filter glasses"],
+    ["Moscovici", "Naming the colour of blue slides"],
+    ["Zimbardo (1973)", "Taking the role of prisoner or guard"]
+  ]},
+  {"id": "m-group-factors", "topic": "conformity", "title": "Situational factors and their effect", "pairs": [
+    ["1 confederate", "Almost no conformity"],
+    ["2 confederates", "12.8% conformity"],
+    ["3 confederates", "33.3% conformity"],
+    ["An ally answering before the participant", "Conformity fell to 5.5%"]
+  ]},
+  {"id": "m-individual", "topic": "conformity", "title": "Individual and cultural factors: research", "pairs": [
+    ["Eagly and Carli (1987)", "Women tend to take a communal role and promote harmony"],
+    ["Santee and Maslach (1982)", "Higher self-esteem, less conformity"],
+    ["Burger", "People who value control conform less"],
+    ["Hornsey et al (2003)", "Strong views reduce conformity"],
+    ["Tong et al (2007)", "More conformity in a good mood"],
+    ["Kim and Markus (1999)", "Non-conformity linked with deviance in collectivist cultures"],
+    ["Smith and Bond (1993)", "Conformity rates in different cultures"]
+  ]},
+  {"id": "m-asch-mori", "topic": "conformity", "title": "Asch and Mori and Arai compared", "pairs": [
+    ["Asch's participants", "50 male Americans"],
+    ["Mori and Arai's participants", "104 Japanese students, male and female"],
+    ["How Asch created a wrong majority", "Confederates gave prepared wrong answers"],
+    ["How Mori and Arai created a wrong majority", "Filter glasses made one person see a different image"]
+  ]},
+  {"id": "m-milgram-numbers", "topic": "obedience", "title": "Milgram's variations and obedience levels", "pairs": [
+    ["Baseline at Yale", "65%"],
+    ["Run-down office", "47.5%"],
+    ["Teacher and learner in the same room", "40%"],
+    ["Hand forced onto the shock plate", "30%"],
+    ["Instructions over the phone", "21%"],
+    ["Experimenter in normal clothes", "20%"],
+    ["Another confederate gives the shocks", "92%"]
+  ]},
+  {"id": "m-milgram-factors", "topic": "obedience", "title": "Milgram's variations and the factor tested", "pairs": [
+    ["Run-down office instead of Yale", "Location"],
+    ["Normal clothes instead of a lab coat", "Uniform"],
+    ["Instructions over the phone", "Proximity to authority"],
+    ["Teacher and learner in the same room", "Proximity to victim"]
+  ]},
+  {"id": "m-obedience-studies", "topic": "obedience", "title": "Obedience studies and findings", "pairs": [
+    ["Bickman (1974)", "Security guard obeyed by 89% of passers-by"],
+    ["Hofling (1966)", "21 out of 22 nurses obeyed a doctor's phone order"],
+    ["Rank and Jacobson (1977)", "2 out of 18 nurses obeyed with a known drug"],
+    ["Burger (2009)", "Replication with only slightly lower obedience"],
+    ["Milgram (1963)", "26 out of 40 went to 450 volts"]
+  ]},
+  {"id": "m-weber", "topic": "obedience", "title": "Weber's sources of authority", "pairs": [
+    ["Tradition", "Some groups are considered to have the right to give instructions"],
+    ["Legal", "We obey because not doing so could lead to punishment"],
+    ["Charisma", "Great personal charm persuades others"]
+  ]},
+  {"id": "m-agency", "topic": "obedience", "title": "Agency theory and parenting", "pairs": [
+    ["Autonomous state", "Taking responsibility for your own actions"],
+    ["Agentic state", "Passing responsibility to the person giving orders"],
+    ["Agentic shift", "Moving from autonomous to agentic"],
+    ["Authoritarian parenting", "Rules should be obeyed and not discussed"],
+    ["Democratic parenting", "Children negotiate reasonable boundaries"]
+  ]},
+  {"id": "m-hassan", "topic": "obedience", "title": "Hassan: identifying a cult", "pairs": [
+    ["Behaviour control", "Regulating where members live, eat and sleep"],
+    ["Information control", "Minimising access to non-cult sources"],
+    ["Thought control", "Accepting the cult's view of reality as truth"],
+    ["Emotional control", "Blocking out doubt; promoting guilt and fear"]
+  ]},
+  {"id": "m-slice", "topic": "evaluation", "title": "SLICE", "pairs": [
+    ["Summary", "Description of the study: aim, method, results"],
+    ["Links", "Connections to concepts and theories"],
+    ["Implications", "How findings apply to real life"],
+    ["Compare", "Similarities and differences with other studies"],
+    ["Evaluation", "Strengths and weaknesses of the evidence"]
+  ]},
+  {"id": "m-evaluation", "topic": "evaluation", "title": "Evaluation criteria", "pairs": [
+    ["Ecological validity", "Can the findings be applied to the real world?"],
+    ["Sampling", "Is it representative of the whole population?"],
+    ["Date", "Can the findings be applied to behaviour today?"],
+    ["Cultural relativism", "Can the findings be applied to different cultures?"],
+    ["Ethics", "Can findings be valid if guidelines have been broken?"]
+  ]}
+]

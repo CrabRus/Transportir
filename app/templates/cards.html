@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — {{ subject.title_ru }}{% endblock %}
+{% block main_class %}page page-narrow{% endblock %}
+{% block content %}
+<div id="cards">
+  <div class="runner-head">
+    <a href="{{ url_for('subject.practice') }}">← Задания</a>
+    <span id="cards-count" class="muted"></span>
+  </div>
+  <div class="bar"><i id="cards-bar" style="width:0"></i></div>
+  {% if kind == 'translation' %}
+  <div class="segmented" role="group" aria-label="Направление">
+    <button id="dir-en" type="button" aria-pressed="true">English → русский</button>
+    <button id="dir-ru" type="button" aria-pressed="false">Русский → English</button>
+  </div>
+  {% endif %}
+  <button id="card" class="flashcard" type="button" aria-live="polite">
+    <span id="card-face" class="face-label"></span>
+    <span id="card-main" class="card-main"></span>
+    <span id="card-sub" class="card-sub"></span>
+    <span id="card-source" class="card-source"></span>
+  </button>
+  <p id="card-hint" class="muted center">Нажмите на карточку или пробел, чтобы перевернуть</p>
+  <div id="card-grade" class="grade" hidden>
+    <button id="grade-again" class="btn" type="button">Ещё учу</button>
+    <button id="grade-know" class="btn btn-primary" type="button">Знаю</button>
+  </div>
+</div>
+<section id="cards-done" hidden>
+  <p class="eyebrow">Готово</p>
+  <h1 id="done-text"></h1>
+  <p class="actions">
+    <a class="btn btn-primary" href="">Повторить</a>
+    <a class="btn" href="{{ url_for('subject.practice') }}">К заданиям</a>
+  </p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script id="page-data" type="application/json">{{ {"cards": cards, "kind": kind}|tojson }}</script>
+<script src="{{ url_for('static', filename='js/cards.js') }}"></script>
+{% endblock %}
